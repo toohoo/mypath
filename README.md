@@ -3,7 +3,7 @@
 
 ## prerequisites
 * installed Perl with executable in PATH
-* necessary files reside in `d:\temp` - otherwise change programming
+* necessary files reside in `d:\temp` - otherwise change programming - put all files there.
 * directory `d:\temp` is already in PATH
 
 ## usage
