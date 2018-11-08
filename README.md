@@ -1,5 +1,5 @@
 # mypath
-(Perl) Tool for working with PATH on Windows
+Command line Tool (written in Perl) for working with PATH on Windows
 
 ## prerequisites
 * installed Perl with executable in PATH
