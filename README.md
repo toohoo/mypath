@@ -13,6 +13,9 @@ mypath.pl - Thomas Hofmann, Apr. 2010 - PATH Handling
 Usage/Benutzung: [perl] mypath.pl [-q] {delete|unshift|push} (dir1) [{delete|unshift|push} (dir2) ..]
 Usage2/Benutzung2: [perl] mypath.pl list [-all|(dir-fragment)]
 ```
+Set switch `-q` for "quiet" operation, some messages are suppressed.
+Instead of using switch `-q` you can set environment variable MYPATH_QUIET=[Ja|Yes|true|1|-q|On]
+On Usage2 switch `-q` has no effect.
 
 ## be aware
 * After changing the PATH call batch `mypathnew.bat` (also resides in `d:\temp` )
