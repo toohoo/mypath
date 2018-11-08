@@ -28,7 +28,7 @@ my ($act, $dir);
 
 # if list, then other job/wenn list, dann andere Behandlung
 if ( $ARGV[0] =~ /list/i ) {
-	print "... list ...\n" if !$qiuet;
+	print "... list ...\n" if !$quiet;
 	shift(@ARGV);
 	my @what = @ARGV;
 	if( $what[0] ne '' ) {
