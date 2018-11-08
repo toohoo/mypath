@@ -1,3 +1,6 @@
+# source code files
+*.java
+
 # Compiled class file
 *.class
 
