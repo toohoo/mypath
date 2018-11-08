@@ -17,6 +17,8 @@ Set switch `-q` for "quiet" operation, some messages are suppressed.
 Instead of using switch `-q` you can set environment variable MYPATH_QUIET=[Ja|Yes|true|1|-q|On]
 On Usage2 switch `-q` has no effect.
 
+Instead of using `perl mypath.pl` you can use the `mypath.bat` with same effect.
+
 ## be aware
 * After changing the PATH call batch `mypathnew.bat` (also resides in `d:\temp` )
 to let the changes take effect.
