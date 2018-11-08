@@ -10,11 +10,11 @@
 the usage states this
 ```
 mypath.pl - Thomas Hofmann, Apr. 2010 - PATH Handling
-Usage/Benutzung: [perl] mypath.pl {delete|unshift|push} (dir1) [{delete|unshift|push} (dir2) ..]
+Usage/Benutzung: [perl] mypath.pl [-q] {delete|unshift|push} (dir1) [{delete|unshift|push} (dir2) ..]
 Usage2/Benutzung2: [perl] mypath.pl list [-all|(dir-fragment)]
 ```
 
 ## be aware
-* After changing the PATH call batch mypathnew.bat (also resides in `d:\temp` )
+* After changing the PATH call batch `mypathnew.bat` (also resides in `d:\temp` )
 to let the changes take effect.
 * Be aware of directories with spaces, set them in double quotes (").
