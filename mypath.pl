@@ -20,14 +20,26 @@ if ( $ARGV[0] =~ /-q/i ) { $quiet = shift @ARGV; }
 if ( $ENV{MYPATH_QUIET} =~ /^(Ja|Yes|true|1|-q|On)$/i ) { $quiet = '1'; }
 
 my $path = $ENV{'PATH'};
+#print "... before ENV{PATH}=[$ENV{'PATH'}] \n\n" if !$quiet;
+#print "... before PATH=$path \n\n" if !$quiet;
 my @path = split(/;+/,$path);
 my $neupath = "d:\\temp\\mypathnew.bat";
 my ($act, $dir);
 
-# wenn list, dann andere Behandlung
+# if list, then other job/wenn list, dann andere Behandlung
 if ( $ARGV[0] =~ /list/i ) {
+	print "... list ...\n" if !$qiuet;
 	shift(@ARGV);
 	my @what = @ARGV;
+	if( $what[0] ne '' ) {
+		my $whatcount = @what; $whatcount++;
+		print "... the many \@ARGV: $whatcount\n" if !$quiet;
+		my $what = join( ' -- ', @what );
+		print "... --- \@ARGV are: [$what]\n" if !$quiet;
+	} else {
+		@what = ();
+		print "... no further \@ARGV on list\n" if !$quiet;
+	}
 	listdirs( @what );
 	exit(0);
 }
