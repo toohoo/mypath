@@ -13,7 +13,7 @@ mypath.pl - Thomas Hofmann, Apr. 2010 - PATH Handling
 Usage/Benutzung: [perl] mypath.pl [-q] {delete|unshift|push} (dir1) [{delete|unshift|push} (dir2) ..]
 Usage2/Benutzung2: [perl] mypath.pl list [-all|(dir-fragment)]
 -q   Quiet, some messages are suppressed,
-     or set environment variable MYPATH_QUIET=[1,yes,true,on]
+     or set environment variable MYPATH_QUIET=[1|yes|true|on]
 ```
 Set switch `-q` for "quiet" operation, some messages are suppressed.
 Instead of using switch `-q` you can set environment variable MYPATH_QUIET=[Ja|Yes|true|1|-q|On]
