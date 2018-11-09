@@ -82,6 +82,8 @@ sub usage {
 $mes
 Usage/Benutzung: [perl] mypath.pl [-q] {delete|unshift|push} (dir1) [{delete|unshift|push} (dir2) ..]
 Usage2/Benutzung2: [perl] mypath.pl list [-all|(dir-fragment)]
+-q   Quiet, some messages are suppressed, 
+     or set environment variable MYPATH_QUIET=[1|yes|true|on]
 __USAGE__
 
 }
