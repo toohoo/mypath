@@ -13,7 +13,7 @@
 #print "... vor if ($#ARGV < 1)\n";
 #print "\$#ARGV [$#ARGV]\n";
 #print "\$ARGV[0/1] [$ARGV[0]/$ARGV[1]]\n";
-if ( ( $#ARGV < 1 ) && ( $ARGV[0] !~ /list/i ) ) {&usage();}
+if ( ( $#ARGV < 1 ) && ( $ARGV[0] !~ /list/i ) ) {&abbruch();}
 #print "... nach if ($#ARGV < 1)\n";
 my $quiet = 0;
 if ( $ARGV[0] =~ /-q/i ) { $quiet = shift @ARGV; }
@@ -22,13 +22,15 @@ if ( $ENV{MYPATH_QUIET} =~ /^(Ja|Yes|true|1|-q|On)$/i ) { $quiet = '1'; }
 my $path = $ENV{'PATH'};
 #print "... before ENV{PATH}=[$ENV{'PATH'}] \n\n" if !$quiet;
 #print "... before PATH=$path \n\n" if !$quiet;
+#print "... before ENV{MYPATH_DEBUG}=[$ENV{'MYPATH_DEBUG'}] \n\n" if !$quiet;
+
 my @path = split(/;+/,$path);
 my $neupath = "d:\\temp\\mypathnew.bat";
 my ($act, $dir);
 
 # if list, then other job/wenn list, dann andere Behandlung
 if ( $ARGV[0] =~ /list/i ) {
-	print "... list ...\n" if !$quiet;
+	print "... list ...\n" if $ENV{'MYPATH_DEBUG'}; # $quiet;
 	shift(@ARGV);
 	my @what = @ARGV;
 	if( $what[0] ne '' ) {
@@ -38,19 +40,39 @@ if ( $ARGV[0] =~ /list/i ) {
 		print "... --- \@ARGV are: [$what]\n" if !$quiet;
 	} else {
 		@what = ();
-		print "... no further \@ARGV on list\n" if !$quiet;
+		print "... no further \@ARGV on list\n" if $ENV{'MYPATH_DEBUG'}; #if !$quiet;
 	}
 	listdirs( @what );
 	exit(0);
 }
 
+my ($parbegin, $rest, @dirrest, $nextact, $nextdir);
 # if not 'list' then change directories/wenn nicht 'list' dann Verzeichnisse bearbeiten
 while ($ARGV[1]) {
 	$act = shift(@ARGV);
 	$dir = shift(@ARGV);
 	$dir =~ s/ +$//;
-	$dir =~ s/"$//;
+	$dir =~ s/\"$//;
+	# ein '\"' ist Teufelswerk! Das beendet den Parameter nicht.
+	while( $dir =~ m/^(.+?)\\?"(.*?)$/ ) { # while dir contains '"'
+		$dir = $1;
+		$rest = $2;
+		if( $rest =~ m/ *(delete|unshift|push) +(.*?)$/i ) { # are there params after dir?
+			$nextact = $1;
+			$nextdir = $2;
+			if( $nextdir =~ m/^ *"(.*?)$/ ) { # does nextdir start with '"'?
+				push( @ARGV, $nextact, $nextdir); # push it and let it run into next while
+			} else { # if nextdir doesn't start with '"' 
+				@dirrest = split( / +/, $nextdir ); # then split it; 
+				$dirrest[0] .= '"'; # put '"' at end of dir; 
+				$nextdir = join( ' ', @dirrest ); # join it 
+				push( @ARGV, $nextact, $nextdir); # => next while
+			}
+		}
+	}
+	
 	#print ">>> [$act]:: $dir\n";
+	
 	if ($act =~ m/^delete$/i) {
 		&delete($dir);
 	} elsif ($act =~ m/^unshift$/i) {
@@ -66,7 +88,7 @@ while ($ARGV[1]) {
 	}
 }
 $ENV{'PATH'} = $path;
-&ausgabe() if !$quiet;
+&ausgabe() if $ENV{'MYPATH_DEBUG'}; # !$quiet;
 if (open(PATH,">$neupath")) {
 	print "... write/schreibe $neupath\n" if !$quiet;
 	print PATH "set PATH=$path\n";
@@ -123,7 +145,7 @@ sub listdirs {
 	} else {
 		$what = shift @what;
 	}
-	print "___ dir's actually ___\n";
+	print "___ dir's actually ___\n" if $ENV{'MYPATH_DEBUG'};
 	foreach my $p ( @path ) {
 		print "$p\n" if ( $all or ( $p =~ /$what/i ) );
 	}
